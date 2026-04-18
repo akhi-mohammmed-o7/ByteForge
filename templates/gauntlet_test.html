@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-bolt me-2"></i>{{ skill.name }} GAUNTLET
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/worker/test/{{ skill.id }}/submit" id="testForm">
+                    {% for q in questions %}
+                    <div class="card mb-3" style="background: rgba(0,242,255,.02);">
+                        <div class="card-body">
+                            <p class="mb-3"><strong style="color: #ffffff;">{{ loop.index }}. {{ q.question_text }}</strong></p>
+                            <div class="ms-3">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q_{{ q.id }}" value="A" id="q{{ q.id }}a" style="background-color: var(--bg3); border-color: var(--cyan);">
+                                    <label class="form-check-label" for="q{{ q.id }}a" style="color: #cbd5e1;">A) {{ q.option_a }}</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q_{{ q.id }}" value="B" id="q{{ q.id }}b" style="background-color: var(--bg3); border-color: var(--cyan);">
+                                    <label class="form-check-label" for="q{{ q.id }}b" style="color: #cbd5e1;">B) {{ q.option_b }}</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q_{{ q.id }}" value="C" id="q{{ q.id }}c" style="background-color: var(--bg3); border-color: var(--cyan);">
+                                    <label class="form-check-label" for="q{{ q.id }}c" style="color: #cbd5e1;">C) {{ q.option_c }}</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="q_{{ q.id }}" value="D" id="q{{ q.id }}d" style="background-color: var(--bg3); border-color: var(--cyan);">
+                                    <label class="form-check-label" for="q{{ q.id }}d" style="color: #cbd5e1;">D) {{ q.option_d }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn-c">
+                            <i class="fas fa-paper-plane me-2"></i>Submit Test
+                        </button>
+                        <a href="/worker/skills" class="btn-cd">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('testForm').addEventListener('submit', function(e) {
+    let unanswered = [];
+    {% for q in questions %}
+    let radios = document.getElementsByName('q_{{ q.id }}');
+    let checked = false;
+    for(let radio of radios) {
+        if(radio.checked) {
+            checked = true;
+            break;
+        }
+    }
+    if(!checked) {
+        unanswered.push({{ loop.index }});
+    }
+    {% endfor %}
+    
+    if(unanswered.length > 0) {
+        if(!confirm('You have ' + unanswered.length + ' unanswered question(s). Continue anyway?')) {
+            e.preventDefault();
+        }
+    }
+});
+</script>
+{% endblock %}

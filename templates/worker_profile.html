@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-lg-6">
+<div class="card"><div class="card-header"><i class="fas fa-user-edit me-2"></i>EDIT PROFILE</div>
+<div class="card-body">
+<form method="POST">
+<div class="mb-3"><label class="form-label">Anonymous ID</label><input class="form-control" value="{{ current_user.anonymous_id }}" disabled></div>
+<div class="mb-3"><label class="form-label">Name</label><input class="form-control" value="{{ current_user.name }}" disabled></div>
+<div class="mb-3"><label class="form-label">Bio</label><textarea name="bio" class="form-control" rows="3">{{ current_user.bio or '' }}</textarea></div>
+<div class="mb-3"><label class="form-label">Location</label><input name="location" class="form-control" value="{{ current_user.location or '' }}"></div>
+<button type="submit" class="btn-c w-100"><i class="fas fa-save me-2"></i>Save Profile</button>
+</form></div></div>
+</div></div>
+{% endblock %}

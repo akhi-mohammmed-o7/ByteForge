@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-building me-2"></i>EMPLOYER LOGIN
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-envelope me-1"></i>Email Address
+                        </label>
+                        <input type="email" name="email" class="form-control" placeholder="hr@company.com" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <i class="fas fa-lock me-1"></i>Password
+                        </label>
+                        <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-cp w-100">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login to Employer Portal
+                    </button>
+                </form>
+                
+                <hr class="my-4" style="border-color: var(--border);">
+                
+                <div class="text-center">
+                    <p class="text-m mb-2">
+                        <i class="fas fa-info-circle me-1"></i>Demo Credentials
+                    </p>
+                    <div class="card" style="background: rgba(255,0,110,.05); border-color: var(--pink-dim);">
+                        <div class="card-body py-2">
+                            <code style="color: var(--pink);">hr@techcorp.io</code>
+                            <span class="text-m mx-2">/</span>
+                            <code style="color: var(--pink);">Employer@123</code>
+                        </div>
+                    </div>
+                    <p class="mt-3 mb-0">
+                        <small class="text-m">New employer?</small><br>
+                        <a href="/employer/register" class="btn-c mt-2" style="font-size: 0.7rem;">
+                            <i class="fas fa-plus me-1"></i>Register New Company
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

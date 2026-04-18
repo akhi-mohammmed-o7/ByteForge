@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-building me-2"></i>EMPLOYER REGISTRATION
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Contact Person Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="John Smith" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Company Name (Optional)</label>
+                        <input type="text" name="company" class="form-control" placeholder="TechCorp Solutions">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Business Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="hr@company.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Minimum 8 characters" required>
+                    </div>
+                    <button type="submit" class="btn-cp w-100">
+                        <i class="fas fa-check me-2"></i>Register Company
+                    </button>
+                </form>
+                <hr class="my-4" style="border-color: var(--border);">
+                <p class="text-center mb-0">
+                    <span class="text-m">Already registered?</span><br>
+                    <a href="/employer/login" class="btn-c mt-2 w-100">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

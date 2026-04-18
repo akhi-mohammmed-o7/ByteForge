@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header" style="color: var(--yellow);">
+                <i class="fas fa-edit me-2"></i>EDIT QUESTION - {{ q.skill.name }}
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Question Text</label>
+                        <textarea name="question_text" class="form-control" rows="3" required>{{ q.question_text }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Option A</label>
+                        <input type="text" name="option_a" class="form-control" value="{{ q.option_a }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Option B</label>
+                        <input type="text" name="option_b" class="form-control" value="{{ q.option_b }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Option C</label>
+                        <input type="text" name="option_c" class="form-control" value="{{ q.option_c }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Option D</label>
+                        <input type="text" name="option_d" class="form-control" value="{{ q.option_d }}" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Correct Answer</label>
+                        <select name="correct_answer" class="form-select" required>
+                            <option value="A" {% if q.correct_answer == 'A' %}selected{% endif %}>A</option>
+                            <option value="B" {% if q.correct_answer == 'B' %}selected{% endif %}>B</option>
+                            <option value="C" {% if q.correct_answer == 'C' %}selected{% endif %}>C</option>
+                            <option value="D" {% if q.correct_answer == 'D' %}selected{% endif %}>D</option>
+                        </select>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn-c">
+                            <i class="fas fa-save me-2"></i>Update Question
+                        </button>
+                        <a href="{{ url_for('admin.manage_questions', skill_id=q.skill_id) }}" class="btn-cd">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

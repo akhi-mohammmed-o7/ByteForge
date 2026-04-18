@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="page-title"><i class="fas fa-bolt me-2" style="color: var(--cyan);"></i>Available Skills</h2>
+    <span class="badge-cyber">{{ skills|length }} Skills Available</span>
+</div>
+
+<div class="row">
+    {% for skill in skills %}
+    <div class="col-md-6 col-lg-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-start justify-content-between mb-3">
+                    <div>
+                        <i class="fas {{ skill.icon }}" style="font-size: 1.5rem; color: var(--cyan); margin-bottom: 0.5rem;"></i>
+                        <h5 style="font-family: var(--F); font-size: 1rem; margin: 0; color: var(--text);">{{ skill.name }}</h5>
+                        <span class="badge-cyber mt-1">{{ skill.category }}</span>
+                    </div>
+                    {% if skill.id in taken_ids %}
+                        <span class="badge-high"><i class="fas fa-check-circle me-1"></i>VERIFIED</span>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-3">
+                    <small class="text-m">
+                        <i class="fas fa-question-circle me-1"></i>{{ q_counts[skill.id] }} Questions
+                    </small>
+                    {% if attempt_counts[skill.id] > 0 %}
+                    <br><small class="text-m">
+                        <i class="fas fa-history me-1"></i>{{ attempt_counts[skill.id] }} Attempts
+                    </small>
+                    {% endif %}
+                </div>
+                
+                {% if skill.id in taken_ids %}
+                    <button class="btn-cs w-100" disabled style="opacity: 0.7;">
+                        <i class="fas fa-check-circle me-2"></i>Already Verified
+                    </button>
+                {% elif q_counts[skill.id] == 0 %}
+                    <button class="btn-c w-100" disabled style="opacity: 0.5;">
+                        <i class="fas fa-clock me-2"></i>Coming Soon
+                    </button>
+                {% else %}
+                    <a href="/worker/test/{{ skill.id }}" class="btn-c w-100">
+                        <i class="fas fa-play me-2"></i>Take Test
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

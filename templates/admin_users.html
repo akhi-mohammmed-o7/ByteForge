@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="page-title mb-4">Manage Users</h2>
+<div class="card mb-3"><div class="card-body"><form method="GET" class="row g-2"><div class="col-md-3"><select name="role" class="form-select"><option value="worker" {% if role=='worker' %}selected{% endif %}>Workers</option><option value="employer" {% if role=='employer' %}selected{% endif %}>Employers</option></select></div>
+<div class="col-md-6"><input type="text" name="search" class="form-control" placeholder="Search..." value="{{ search }}"></div><div class="col-md-3"><button type="submit" class="btn-c w-100">Search</button></div></form></div></div>
+<div class="card"><div class="card-body p-0"><table class="table"><thead><tr><th>ID/Name</th><th>Email</th><th>Score</th><th>Joined</th><th>Actions</th></tr></thead>
+<tbody>{% for u in users %}<tr><td><code>{{ u.anonymous_id or u.name[:15] }}</code></td><td>{{ u.email }}</td><td>{{ u.shadow_score }}/100</td><td>{{ u.created_at.strftime('%Y-%m-%d') }}</td><td><form method="POST" action="/admin/users/delete/{{ u.id }}" class="d-inline"><button class="btn-cd btn-sm-c" onclick="return confirm('Delete {{ u.name }}?')"><i class="fas fa-trash"></i></button></form></td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

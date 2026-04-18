@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="page-title"><i class="fas fa-question-circle me-2" style="color: var(--yellow);"></i>Manage Questions</h2>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header" style="color: var(--yellow);">
+                <i class="fas fa-plus me-2"></i>ADD QUESTION
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Select Skill</label>
+                        <select name="skill_id" class="form-select" required>
+                            <option value="">Choose skill...</option>
+                            {% for skill in skills %}
+                            <option value="{{ skill.id }}" {% if selected_sid == skill.id %}selected{% endif %}>
+                                {{ skill.name }} ({{ skill.category }})
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Question Text</label>
+                        <textarea name="question_text" class="form-control" rows="3" placeholder="Enter your question here..." required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Option A</label>
+                        <input type="text" name="option_a" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Option B</label>
+                        <input type="text" name="option_b" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Option C</label>
+                        <input type="text" name="option_c" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Option D</label>
+                        <input type="text" name="option_d" class="form-control" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Correct Answer</label>
+                        <select name="correct_answer" class="form-select" required>
+                            <option value="">Select correct option...</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-c w-100" style="border-color: var(--yellow); color: var(--yellow);">
+                        <i class="fas fa-plus me-2"></i>Add Question
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-list me-2"></i>QUESTIONS
+                <span class="ms-2 text-m">({{ questions|length }} total)</span>
+            </div>
+            <div class="card-body">
+                {% if questions %}
+                    {% for q in questions %}
+                    <div class="card mb-3" style="background: rgba(255,214,10,.02);">
+                        <div class="card-body">
+                            <p><strong style="color: #ffffff;">{{ loop.index }}. {{ q.question_text }}</strong></p>
+                            <div class="row mb-2">
+                                <div class="col-6"><span class="text-m">A:</span> <span style="color:#cbd5e1;">{{ q.option_a }}</span></div>
+                                <div class="col-6"><span class="text-m">B:</span> <span style="color:#cbd5e1;">{{ q.option_b }}</span></div>
+                                <div class="col-6"><span class="text-m">C:</span> <span style="color:#cbd5e1;">{{ q.option_c }}</span></div>
+                                <div class="col-6"><span class="text-m">D:</span> <span style="color:#cbd5e1;">{{ q.option_d }}</span></div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge-high">Correct: {{ q.correct_answer }}</span>
+                                <div>
+                                    <a href="/admin/questions/edit/{{ q.id }}" class="btn-c btn-sm-c me-1" style="border-color: var(--cyan); color: var(--cyan);">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form method="POST" action="/admin/questions/delete/{{ q.id }}" style="display: inline;">
+                                        <button type="submit" class="btn-cd btn-sm-c" onclick="return confirm('Delete this question?')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-inbox" style="font-size: 3rem; color: var(--muted); opacity: 0.3;"></i>
+                        <p class="text-m mt-3">Select a skill to view its questions</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

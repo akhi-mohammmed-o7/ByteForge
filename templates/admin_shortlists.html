@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="page-title mb-4">Shortlists</h2>
+<div class="card"><div class="card-body p-0"><table class="table"><thead><tr><th>Employer</th><th>Worker</th><th>Note</th><th>Revealed</th><th>Date</th></tr></thead>
+<tbody>{% for item in data %}<tr><td>{{ item.employer.name }}</td><td><code>{{ item.worker.anonymous_id }}</code></td><td>{{ item.sl.note or '-' }}</td><td>{% if item.sl.revealed %}<span class="badge-high">Yes</span>{% else %}<span class="badge-low">No</span>{% endif %}</td><td>{{ item.sl.created_at.strftime('%Y-%m-%d') }}</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

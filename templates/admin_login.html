@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card">
+            <div class="card-header" style="color: var(--yellow);">
+                <i class="fas fa-crown me-2"></i>ADMIN ACCESS
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="fas fa-envelope me-1"></i>Admin Email
+                        </label>
+                        <input type="email" name="email" class="form-control" placeholder="admin@pramaan.io" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <i class="fas fa-lock me-1"></i>Password
+                        </label>
+                        <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-c w-100" style="border-color: var(--yellow); color: var(--yellow);">
+                        <i class="fas fa-sign-in-alt me-2"></i>Access Admin Panel
+                    </button>
+                </form>
+                
+                <hr class="my-4" style="border-color: var(--border);">
+                
+                <div class="text-center">
+                    <div class="card" style="background: rgba(255,214,10,.05); border-color: rgba(255,214,10,.2);">
+                        <div class="card-body py-2">
+                            <code style="color: var(--yellow);">admin@pramaan.io</code>
+                            <span class="text-m mx-2">/</span>
+                            <code style="color: var(--yellow);">Admin@123</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

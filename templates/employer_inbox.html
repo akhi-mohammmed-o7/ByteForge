@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="page-title mb-4"><i class="fas fa-envelope me-2"></i>Employer Inbox</h2>
+{% if messages %}{% for m in messages %}<div class="card mb-3"><div class="card-header"><span><i class="fas fa-user me-2"></i>From: {{ m.sender.anonymous_id or m.sender.name }}</span><span class="float-end">{{ m.sent_at.strftime('%Y-%m-%d %H:%M') }}</span></div>
+<div class="card-body"><h5>{{ m.subject }}</h5><p>{{ m.body }}</p></div></div>{% endfor %}
+{% else %}<div class="card p-5 text-center"><p>No messages</p></div>{% endif %}
+{% endblock %}

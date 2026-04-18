@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Merit Board - Anonymous Candidates</h2>
+{% for worker in workers %}
+<div class="card">
+    <code>{{ worker.anonymous_id }}</code> - Score: {{ worker.shadow_score }}/100
+    {% if worker.id in shortlisted_ids %}
+        <span style="color: #00ff9d;">[SHORTLISTED]</span>
+    {% else %}
+        <button class="btn shortlist-btn" data-id="{{ worker.id }}">Shortlist</button>
+    {% endif %}
+</div>
+{% endfor %}
+<script>
+document.querySelectorAll('.shortlist-btn').forEach(btn => {
+    btn.onclick = () => fetch(`/employer/shortlist/${btn.dataset.id}`, {method: 'POST'}).then(() => location.reload());
+});
+</script>
+{% endblock %}

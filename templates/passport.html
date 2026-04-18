@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-id-card me-2"></i>DIGITAL PASSPORT
+                {% if public %}
+                <span class="badge-high ms-2">PUBLIC VIEW</span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <!-- Anonymous ID Section -->
+                <div class="text-center mb-4">
+                    <div class="section-label mb-2">ANONYMOUS IDENTIFIER</div>
+                    <div class="anon-id" style="font-size: 2.5rem; letter-spacing: 5px;">
+                        {{ worker.anonymous_id }}
+                    </div>
+                    {% if not public %}
+                    <p class="text-m mt-2">
+                        <i class="fas fa-shield-halved me-1"></i>Share this ID or QR code to prove your skills
+                    </p>
+                    {% endif %}
+                </div>
+
+                <!-- Scores Section -->
+                <div class="row mb-4">
+                    <div class="col-6">
+                        <div class="card" style="background: rgba(0,242,255,.03);">
+                            <div class="card-body text-center py-3">
+                                <div class="section-label">SHADOW SCORE</div>
+                                <div style="font-family: var(--F); font-size: 2.5rem; font-weight: 900; color: var(--green);">
+                                    {{ "%.1f"|format(worker.shadow_score) }}
+                                </div>
+                                <div class="text-m">/100</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card" style="background: rgba(0,242,255,.03);">
+                            <div class="card-body text-center py-3">
+                                <div class="section-label">TRUST SCORE</div>
+                                <div style="font-family: var(--F); font-size: 2.5rem; font-weight: 900; color: var(--cyan);">
+                                    {{ "%.0f"|format(worker.trust_score) }}
+                                </div>
+                                <div class="text-m">/1000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR Code Section (Only for owner) -->
+                {% if not public and qr_b64 %}
+                <div class="text-center mb-4">
+                    <div class="section-label mb-2">SCAN TO VERIFY</div>
+                    <img src="data:image/png;base64,{{ qr_b64 }}" alt="QR Code" style="width: 180px; border: 2px solid var(--border2); border-radius: 10px; padding: 10px; background: white;">
+                    <p class="text-m mt-2">
+                        <i class="fas fa-qrcode me-1"></i>{{ passport_url[:50] }}...
+                    </p>
+                </div>
+                {% endif %}
+
+                <!-- Verified Skills Section -->
+                <div class="mb-3">
+                    <div class="section-label mb-3">
+                        <i class="fas fa-certificate me-2"></i>VERIFIED SKILLS ({{ verified|length }})
+                    </div>
+                    
+                    {% if verified %}
+                        {% for v in verified %}
+                        <div class="card mb-2" style="background: rgba(0,242,255,.02);">
+                            <div class="card-body py-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong style="font-size: 1rem; color: var(--text);">{{ v.name }}</strong>
+                                        <div class="mt-1">
+                                            <code style="font-size: 0.65rem; color: var(--muted);">
+                                                {{ v.hash[:20] }}...
+                                            </code>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="badge-high" style="font-size: 1rem; padding: 0.4rem 1rem;">
+                                            {{ v.score }}%
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-certificate" style="font-size: 3rem; color: var(--muted); opacity: 0.3;"></i>
+                            <p class="text-m mt-3">No verified skills yet</p>
+                            {% if not public %}
+                            <a href="/worker/skills" class="btn-c mt-2">
+                                <i class="fas fa-bolt me-2"></i>Take Your First Test
+                            </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% if not public %}
+                <div class="d-flex gap-2 mt-4">
+                    <a href="/worker/dashboard" class="btn-c">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                    </a>
+                    <a href="/worker/skills" class="btn-cp">
+                        <i class="fas fa-plus me-2"></i>Add More Skills
+                    </a>
+                </div>
+                {% else %}
+                <div class="text-center mt-4">
+                    <a href="/verify" class="btn-c">
+                        <i class="fas fa-fingerprint me-2"></i>Verify Another Hash
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

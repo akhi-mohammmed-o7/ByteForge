@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Resume Upload — PRAMAAN SHADOW{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-7">
+    <p class="section-title"><i class="fas fa-file-upload me-2"></i>Resume Upload</p>
+    <h2 class="hero-title" style="font-size:1.5rem;">Add Supporting <span style="color:var(--accent);">Documents</span></h2>
+    <p style="color:var(--text-muted);margin-bottom:2rem;">Attach your resume to strengthen your profile. This is visible only after you are shortlisted.</p>
+    <div class="card">
+      <div class="card-header"><i class="fas fa-cloud-upload-alt me-2"></i>UPLOAD RESUME</div>
+      <div class="card-body p-4">
+        <div style="border:2px dashed var(--border);border-radius:10px;padding:3rem;text-align:center;cursor:pointer;transition:border-color 0.2s;"
+          ondragover="this.style.borderColor='var(--accent)'"
+          ondragleave="this.style.borderColor='var(--border)'">
+          <i class="fas fa-file-pdf" style="font-size:3rem;color:var(--accent2);margin-bottom:1rem;"></i>
+          <p style="color:var(--text-muted);margin-bottom:1rem;">Drag & drop your resume here, or click to browse</p>
+          <label class="btn-cyber btn-cyber-sm" style="cursor:pointer;">
+            <i class="fas fa-folder-open me-1"></i>Browse File
+            <input type="file" accept=".pdf,.doc,.docx" style="display:none;">
+          </label>
+          <p style="color:var(--text-muted);font-size:0.75rem;margin-top:1rem;">PDF, DOC, DOCX — Max 5MB</p>
+        </div>
+        <div class="mt-4 p-3" style="background:rgba(0,242,255,0.04);border:1px solid var(--border);border-radius:8px;">
+          <div style="font-family:var(--font-display);font-size:0.6rem;letter-spacing:2px;color:var(--accent);margin-bottom:0.4rem;">
+            <i class="fas fa-shield-halved me-1"></i>PRIVACY NOTICE
+          </div>
+          <p style="color:var(--text-muted);font-size:0.82rem;margin:0;line-height:1.6;">
+            Your resume is stored privately and linked to your anonymous ID. It is only revealed to an employer after they shortlist you from the Merit Board.
+          </p>
+        </div>
+        <div class="d-flex gap-3 mt-4">
+          <button class="btn-cyber" style="font-size:0.78rem;padding:0.7rem 2rem;" disabled>
+            <i class="fas fa-upload me-2"></i>Upload Resume
+          </button>
+          <a href="/worker/dashboard" class="btn-cyber" style="font-size:0.78rem;padding:0.7rem 1.5rem;border-color:rgba(0,242,255,0.2);color:var(--text-muted);">
+            <i class="fas fa-arrow-left me-1"></i>Back
+          </a>
+        </div>
+        <p style="color:var(--text-muted);font-size:0.75rem;margin-top:1rem;font-style:italic;">
+          <i class="fas fa-info-circle me-1"></i>File upload feature coming soon. Your PRAMAAN Passport serves as your primary credential.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="page-title"><i class="fas fa-building me-2" style="color: var(--pink);"></i>Employer Dashboard</h2>
+    <div>
+        <a href="/employer/inbox" class="btn-c me-2">
+            <i class="fas fa-envelope me-1"></i>Inbox
+            {% if unread > 0 %}
+            <span class="badge-high ms-1">{{ unread }}</span>
+            {% endif %}
+        </a>
+        <a href="/employer/merit-board" class="btn-cp">
+            <i class="fas fa-search me-1"></i>Browse Candidates
+        </a>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-users" style="font-size: 2rem; color: var(--pink);"></i>
+                <h3 style="font-family: var(--F); margin-top: 0.5rem;">{{ sl_data|length }}</h3>
+                <p class="text-m">Shortlisted Candidates</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-bookmark me-2" style="color: var(--pink);"></i>YOUR SHORTLIST
+    </div>
+    <div class="card-body">
+        {% if sl_data %}
+            {% for item in sl_data %}
+            <div class="card mb-3" style="background: rgba(255,0,110,.02);">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <code class="anon-id" style="font-size: 1.3rem;">{{ item.worker.anonymous_id }}</code>
+                            <div class="mt-2">
+                                <span class="badge-cyber">Shadow: {{ item.worker.shadow_score }}/100</span>
+                                <span class="badge-cyber">Trust: {{ item.worker.trust_score }}/1000</span>
+                                {% if item.shortlist.revealed %}
+                                <span class="badge-high"><i class="fas fa-eye me-1"></i>Revealed</span>
+                                {% endif %}
+                            </div>
+                            {% if item.shortlist.revealed %}
+                            <div class="mt-2">
+                                <p class="mb-1"><i class="fas fa-user me-2"></i>{{ item.worker.name }}</p>
+                                <p class="mb-0"><i class="fas fa-envelope me-2"></i>{{ item.worker.email }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div>
+                            {% if not item.shortlist.revealed %}
+                            <form method="POST" action="/employer/reveal/{{ item.worker.id }}">
+                                <button type="submit" class="btn-cp">
+                                    <i class="fas fa-eye me-1"></i>Reveal Identity
+                                </button>
+                            </form>
+                            {% else %}
+                            <a href="/employer/message/{{ item.worker.id }}" class="btn-c">
+                                <i class="fas fa-envelope me-1"></i>Message
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-center py-4">
+                <i class="fas fa-users-slash" style="font-size: 3rem; color: var(--muted); opacity: 0.3;"></i>
+                <p class="text-m mt-3">No shortlisted candidates yet</p>
+                <a href="/employer/merit-board" class="btn-cp mt-2">
+                    <i class="fas fa-search me-2"></i>Browse Merit Board
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Candidate Identity Revealed</h2>
+    <p><strong>Name:</strong> {{ worker.name }}</p>
+    <p><strong>Email:</strong> {{ worker.email }}</p>
+    <p><strong>Anonymous ID:</strong> <code>{{ worker.anonymous_id }}</code></p>
+    <p><strong>Shadow Score:</strong> {{ worker.shadow_score }}/100</p>
+    <a href="/employer/dashboard" class="btn">Back</a>
+</div>
+{% endblock %}

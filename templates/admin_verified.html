@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="page-title mb-4">Verified Skills</h2>
+<div class="card"><div class="card-body p-0"><table class="table"><thead><tr><th>Worker</th><th>Skill</th><th>Score</th><th>Verified At</th><th>Hash</th></tr></thead>
+<tbody>{% for vs in records.items %}<tr><td><code>{{ vs.worker.anonymous_id }}</code></td><td>{{ vs.skill.name }}</td><td>{{ vs.score }}%</td><td>{{ vs.verified_at.strftime('%Y-%m-%d') }}</td><td><code>{{ vs.skill_hash[:16] }}...</code></td></tr>{% endfor %}</tbody></table></div></div>
+{% if records.pages > 1 %}<nav class="mt-3">{% if records.has_prev %}<a href="?page={{ records.prev_num }}" class="btn-c btn-sm-c">Prev</a>{% endif %}
+<span class="mx-2">Page {{ records.page }} of {{ records.pages }}</span>{% if records.has_next %}<a href="?page={{ records.next_num }}" class="btn-c btn-sm-c">Next</a>{% endif %}</nav>{% endif %}
+{% endblock %}

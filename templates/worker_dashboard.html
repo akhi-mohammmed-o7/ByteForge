@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="page-title"><i class="fas fa-grip-horizontal me-2" style="color:var(--cyan);"></i>Worker Dashboard</h2>
+  <a href="/worker/profile" class="btn-c"><i class="fas fa-edit me-1"></i>Edit Profile</a>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header"><i class="fas fa-id-card me-2"></i>IDENTITY</div>
+      <div class="card-body text-center">
+        <div class="anon-id" style="font-size:2rem;">{{ worker.anonymous_id }}</div>
+        <p class="text-m mt-2">Your anonymous identifier</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header"><i class="fas fa-chart-line me-2"></i>SHADOW SCORE</div>
+      <div class="card-body text-center">
+        <div style="font-family:var(--F);font-size:3rem;font-weight:900;color:var(--green);">{{ "%.1f"|format(worker.shadow_score) }}</div>
+        <p class="text-m">/100</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header"><i class="fas fa-shield me-2"></i>TRUST SCORE</div>
+      <div class="card-body text-center">
+        <div style="font-family:var(--F);font-size:3rem;font-weight:900;color:var(--cyan);">{{ "%.0f"|format(worker.trust_score) }}</div>
+        <p class="text-m">/1000</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><i class="fas fa-certificate me-2"></i>VERIFIED SKILLS</div>
+  <div class="card-body">
+    {% if verified_skills %}
+      {% for vs in verified_skills %}
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span><i class="fas fa-check-circle text-g me-2"></i>{{ vs.name }}</span>
+        <span class="badge-high">{{ vs.score }}%</span>
+      </div>
+      {% endfor %}
+    {% else %}
+      <p class="text-m text-center">No verified skills yet. Take a test to get started!</p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="d-flex gap-2">
+  <a href="/worker/skills" class="btn-c"><i class="fas fa-bolt me-2"></i>Take Skill Test</a>
+  <a href="/worker/passport" class="btn-cp"><i class="fas fa-id-card me-2"></i>View Passport</a>
+  <a href="/worker/leaderboard" class="btn-c"><i class="fas fa-trophy me-2"></i>Leaderboard</a>
+</div>
+{% endblock %}
